@@ -47,18 +47,21 @@ class LoadFile:
     # ops: "function"
 
     def execute(self, context):
+        print(self, dir(self))
+        getattr(self, 'before_func', lambda: print('before'))()
+
         from .properties import types
-        print(self.bl_idname)
         path = context.scene.fix_blend_file_path
         try:
             with bpy.data.libraries.load(path) as (data_from, data_to):
                 '''查找是否有匹配的集合'''
                 for t in types:
                     self.ops(data_from, data_to, t)
+                self.data_from = data_from
+                self.data_to = data_to
         except Exception as e:
             self.report({'ERROR'}, '加载文件错误,请选择Blender文件' + str(e.args))
-        fn = getattr(self, 'after_func', lambda: print('emm'))
-        fn()
+        getattr(self, 'after_func', lambda: print('after'))()
         bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP')
         return {"FINISHED"}
 
@@ -74,6 +77,9 @@ class LoadFixFileData(Operator, LoadFile):
         for i in getattr(data_from, t.lower()):
             a = prop.add()
             a.name = i
+
+    def before_func(self):
+        clear_list()
 
 
 class ImportErrorFileData(Operator, LoadFile):
@@ -102,6 +108,8 @@ class ImportErrorFileData(Operator, LoadFile):
     def after_func(self):
         if getattr(self, 'import_list', False):
             print(self.import_list)
+            print('self.data_to', self.data_to)
+            print('self.data_from', self.data_from)
 
 
 class SelectedSwitch(Operator):
