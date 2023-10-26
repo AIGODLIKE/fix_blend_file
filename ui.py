@@ -12,7 +12,7 @@ class DrawFixBlendUi:
         layout = self.layout
         scene = bpy.context.scene
 
-        row = layout.row(align=True)
+        row = layout.row()
         for t in types:
             f = f"{prefix}{t}"
             i = f"{prefix}{t}_index"
@@ -51,8 +51,6 @@ class DrawFixBlendUi:
         layout.label(text='1.底部选择一个损坏的.blend文件')
         layout.label(text='2.点击加载数据')
         layout.label(text='3.选择任意一种导入选项,然后点击导入所选,将会导入对应的数据到当前工程中')
-        layout.separator_spacer()
-        layout.label(text='Note:导入集合或物体时需要手动将导入的项添加到场景内,无法自动导入到当前场景!!')
 
     def left_layout(self: bpy.types.Panel, context: bpy.context):
         column = self.layout.column(align=True)
@@ -171,6 +169,8 @@ def draw_switch(self: bpy.types.Panel, context: "bpy.types.Object"):
     name = self.__class__.__name__
 
     if name == 'USERPREF_MT_editor_menus':
+        show_fix_ui_button(layout)
+    elif name == 'TOPBAR_MT_file_recover':
         show_fix_ui_button(layout)
     elif name == 'USERPREF_PT_save_preferences':
         show_fix_ui_button(layout.row())

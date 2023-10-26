@@ -106,10 +106,19 @@ class ImportErrorFileData(Operator, LoadFile):
                     print('导入了这个', t, i)
 
     def after_func(self):
-        if getattr(self, 'import_list', False):
-            print(self.import_list)
-            print('self.data_to', self.data_to)
-            print('self.data_from', self.data_from)
+        t = self.type.lower()
+        items = getattr(self.data_to, t)
+        if t == 'objects':
+            for o in items:
+                bpy.context.collection.objects.link(o)
+        elif t == 'collections':
+            for c in items:
+                bpy.context.collection.children.link(c)
+
+        self.report({'INFO'}, '导入完成!')
+
+    def link_to_scene(self):
+        ...
 
 
 class SelectedSwitch(Operator):
