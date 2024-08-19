@@ -4,7 +4,8 @@ from . import (
 
     ops,
     properties,
-    preferences
+    preferences,
+    translate
 )
 
 module_list = [
@@ -13,7 +14,8 @@ module_list = [
 
     ops,
     properties,
-    preferences
+    preferences,
+    translate
 ]
 
 

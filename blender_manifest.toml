@@ -1,0 +1,11 @@
+schema_version = "1.0.0"
+
+blender_version_min = "4.2.0"
+id = "FixBlendFile"
+license = ["UNKNOWN",]
+maintainer = "AIGODLIKE Community(小萌新)"
+name = "Fix Blend File"
+tagline = "Repair Blend files, some of the files open Blend will flash back, you can use this plug-in repair"
+type = "add-on"
+version = "1.0.0"
+tags = ["幻之境",]

@@ -32,7 +32,7 @@ class DrawFixBlendUi:
 
             r.operator(
                 ImportErrorFileData.bl_idname,
-                text="导入所选",
+                text="Import selected",
                 icon="IMPORT"
             ).type = t
 
@@ -48,21 +48,21 @@ class DrawFixBlendUi:
                 text="",
                 icon=get_icon()
             ).type = t
-        layout.label(text='1.底部选择一个损坏的.blend文件')
-        layout.label(text='2.点击加载数据')
-        layout.label(text='3.选择任意一种导入选项,然后点击导入所选,将会导入对应的数据到当前工程中')
+        layout.label(text='1.Bottom select a broken .blend file')
+        layout.label(text='2.Click Load data')
+        layout.label(text='3.Select any import option and click Import selected')
 
     def left_layout(self: bpy.types.Panel, context: bpy.context):
         column = self.layout.column(align=True)
         from .properties import types, prefix
         from .ops import ClearFixList
-
+        from .translate import  __ts__
         for t in types:
             items = getattr(context.scene, f"{prefix}{t}")
             column.label(text=t)
             box = column.box()
-            box.label(text=f'共:{len(items)}')
-            box.label(text=f'已选:{len(list(filter(lambda i: i.selected, items)))}')
+            box.label(text=f'{__ts__("Total")}:{len(items)}')
+            box.label(text=f'{__ts__("Selected")}:{len(list(filter(lambda i: i.selected, items)))}')
             column.separator()
             column.separator()
         column.separator_spacer()
@@ -73,7 +73,7 @@ class DrawFixBlendUi:
         from .ops import LoadFixFileData
 
         layout = self.layout
-        layout.label(text="损坏文件路径:")
+        layout.label(text="Error File Path:")
         row = layout.row()
         row.scale_x = 2
         row.prop(bpy.context.scene, 'fix_blend_file_path', text="")
@@ -90,7 +90,7 @@ class DrawFixBlendUi:
         from .ops import SwitchFixUi
         layout.alert = True
         return layout.operator(SwitchFixUi.bl_idname,
-                               text='退出',
+                               text='Exit',
                                icon='PANEL_CLOSE'
                                )
 
@@ -156,7 +156,7 @@ def show_fix_ui_button(lay: "bpy.types.UILayout"):
     from .ops import SwitchFixUi
     lay.operator(SwitchFixUi.bl_idname,
                  icon='FILE_CACHE',
-                 text='修复文件',
+                 text='Fix file',
                  ).popup_window = True
     # emboss=False,
 

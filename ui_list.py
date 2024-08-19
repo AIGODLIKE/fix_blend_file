@@ -4,7 +4,7 @@ from .properties import types
 
 
 class DrawFixItems(UIList):
-    bl_idname = "UI_UL_FIX_BLEND_FILE"
+    bl_idname = "UI_LIST_UL_FIX_BLEND_FILE"
 
     def draw_item(self,
                   context: 'bpy.context',

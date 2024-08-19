@@ -12,9 +12,9 @@ def clear_list():
 
 
 class SwitchFixUi(Operator):
-    bl_label = '弹出修复窗口'
+    bl_label = 'Popup fix window'
     bl_idname = 'wm.popup_fix_blend_window'
-    bl_description = '弹出修复Blend文件窗口'
+    bl_description = 'Popup fix blend file window'
 
     popup_window: BoolProperty(default=False, name='弹出窗口',
                                options={'SKIP_SAVE'})
@@ -67,9 +67,9 @@ class LoadFile:
 
 
 class LoadFixFileData(Operator, LoadFile):
-    bl_label = '加载数据'
+    bl_label = 'Load data'
     bl_idname = 'fix.load_fix_file_data'
-    bl_description = '加载需要修复的文件数据'
+    bl_description = 'Load the file data that needs to be fix'
 
     def ops(self, data_from, data_to, t):
         from .properties import prefix
@@ -83,9 +83,9 @@ class LoadFixFileData(Operator, LoadFile):
 
 
 class ImportErrorFileData(Operator, LoadFile):
-    bl_label = '导入数据'
+    bl_label = 'Import data'
     bl_idname = 'fix.import_error_file_data'
-    bl_description = "导入错误文件的数据"
+    bl_description = "Importing data from error files"
     type: StringProperty()
     import_list = []
 
@@ -115,16 +115,16 @@ class ImportErrorFileData(Operator, LoadFile):
             for c in items:
                 bpy.context.collection.children.link(c)
 
-        self.report({'INFO'}, '导入完成!')
+        self.report({'INFO'}, 'Import complete!')
 
     def link_to_scene(self):
         ...
 
 
 class SelectedSwitch(Operator):
-    bl_label = '切换选择'
+    bl_label = 'Switch select'
     bl_idname = 'fix.selected_switch'
-    bl_description = "切换全选或者取消全选"
+    bl_description = "Switch all or cancel select"
     type: StringProperty()
 
     def execute(self, context):
@@ -135,16 +135,17 @@ class SelectedSwitch(Operator):
             for i in col.values():
                 i.selected = b ^ True
         else:
-            self.report({'INFO'}, f'未找到项{self.type}')
+            from bpy.app.translations import pgettext
+            self.report({'INFO'}, f'{pgettext("Not find item")}{self.type}')
         return {"FINISHED"}
 
 
 class ClearFixList(Operator):
-    bl_label = '清理列表'
+    bl_label = 'Clear list'
     bl_idname = 'fix.clear_list'
-    bl_description = "清理修复的列表"
+    bl_description = "Clear fix list"
 
-    def execute(self, context):
+    def execute(self, _):
         clear_list()
         return {"FINISHED"}
 
