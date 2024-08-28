@@ -1,7 +1,11 @@
 # Fix Blend File
 
-修复Blender文件的插件
+This is an addon for Blender that used to fix corrupted files
 
-选择一个文件,一键追加此文件所有的集合
-部分文件无法直接打开,但可以追加进来
-fix_blend_file
+![image](https://github.com/user-attachments/assets/5ebdc618-e331-4790-b4c9-3d55f5f300f1)
+
+
+## Usage
+
+By append objects or collection in a corrupted to a normal file, this will save projects from a corrupted file.  
+Select a project, load datas, then import scenes/collections/objects to current project.
